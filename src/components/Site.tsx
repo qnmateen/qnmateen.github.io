@@ -18,7 +18,7 @@ export function Site() {
   const [fastLane, setFastLane] = useState(false);
   const [cvGate, setCvGate] = useState(false);
 
-  // Always open at the top — don't let the browser restore a prior scroll spot.
+  // Always open at the top, don't let the browser restore a prior scroll spot.
   useEffect(() => {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);

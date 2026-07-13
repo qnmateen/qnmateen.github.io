@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { PHASES, useProgress } from '@/lib/progress';
 
-// poetic name for each formation — the "state of matter" of the career
+// poetic name for each formation, the "state of matter" of the career
 const PHASE_NAME: Record<string, string> = {
   cells: 'Organism',
   device: 'Diagnostics',

@@ -8,7 +8,7 @@ export type Phase = (typeof PHASES)[number];
 type ProgressStore = {
   /** 0..1 through the whole page */
   progress: number;
-  /** 0..(PHASES.length-1) — fractional position across formations */
+  /** 0..(PHASES.length-1), fractional position across formations */
   phasePos: number;
   /** nearest phase index */
   phase: number;

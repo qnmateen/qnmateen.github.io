@@ -1,6 +1,6 @@
 /**
  * Single source of truth for all site copy + media slots, derived from the CV.
- * Media paths point at /public/media/* — drop real files there and they appear.
+ * Media paths point at /public/media/*; drop real files there and they appear.
  * `media: null` renders a labelled placeholder so the layout is complete now.
  */
 
@@ -38,7 +38,7 @@ export type MediaSlot = {
   kind: 'image' | 'video' | 'chart';
   src: string | null;
   caption: string;
-  /** logos etc. — contain (not cover) and skip the duotone treatment */
+  /** logos etc.: contain (not cover) and skip the duotone treatment */
   contain?: boolean;
 };
 
@@ -214,7 +214,7 @@ export const CHAPTERS: Chapter[] = [
     phase: 'Frontier',
     kicker: 'Builder · Advisor',
     title: 'Building companies for better health.',
-    lede: 'Building MindGaps — leading technology to make mental-health support accessible — and AI Strategy Advisor to Vgenomics on rare-disease genomic diagnostics.',
+    lede: 'Building MindGaps, leading technology to make mental-health support accessible, and AI Strategy Advisor to Vgenomics on rare-disease genomic diagnostics.',
     accent: '#4ade80',
     stats: [
       { text: 'MindGaps', label: 'Building · Tech lead' },
@@ -372,7 +372,7 @@ export const TIMELINE: TimelineItem[] = [
     org: 'MarkiTech.AI',
     place: 'Toronto, ON',
     kind: 'work',
-    blurb: 'Leading healthcare AI-agent development: Heyliaa — a team of AI agents running the clinic front desk (calls, scheduling, insurance, faxes, intake) — plus AI automation across the business.',
+    blurb: 'Leading healthcare AI-agent development: Heyliaa, a team of AI agents running the clinic front desk (calls, scheduling, insurance, faxes, intake), plus AI automation across the business.',
     accent: '#a78bfa',
     current: true,
   },

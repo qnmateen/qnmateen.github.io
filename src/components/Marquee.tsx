@@ -2,7 +2,7 @@
 
 import { MARQUEE } from '@/lib/content';
 
-/** Infinite credibility strip — institutions scroll horizontally. */
+/** Infinite credibility strip, institutions scroll horizontally. */
 export function Marquee() {
   const items = [...MARQUEE, ...MARQUEE];
   return (
