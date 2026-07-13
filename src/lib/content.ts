@@ -372,7 +372,7 @@ export const TIMELINE: TimelineItem[] = [
     org: 'MarkiTech.AI',
     place: 'Toronto, ON',
     kind: 'work',
-    blurb: 'Leading healthcare AI-agent development: Heyliaa (clinic voice agent) and ARVO (autonomous healthcare agent), plus AI automation across the business.',
+    blurb: 'Leading healthcare AI-agent development: Heyliaa — a team of AI agents running the clinic front desk (calls, scheduling, insurance, faxes, intake) — plus AI automation across the business.',
     accent: '#a78bfa',
     current: true,
   },
