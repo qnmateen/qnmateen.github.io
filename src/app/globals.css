@@ -1,26 +1,131 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* near-black canvas + neutral charcoal panels (Linear discipline),
+     kept slightly cool to sit under the bioluminescent particle field */
+  --bg: #040609;
+  --bg-soft: #090b10;
+  --panel: #0f1113;
+  --hairline: #20242b;
+  --hairline-strong: #33343a;
+  --fg: #f4f6f9;
+  --fg-mute: #8a8f98;
+  --fg-dim: #62666d;
+  --accent: #5eead4;
+  --accent-2: #7dd3fc;
+
+  /* Emil-approved strong easings (not weak CSS defaults) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg: var(--bg);
+  --color-bg-soft: var(--bg-soft);
+  --color-panel: var(--panel);
+  --color-hairline: var(--hairline);
+  --color-fg: var(--fg);
+  --color-fg-mute: var(--fg-mute);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
+  color: #fff;
+}
+
+/* Thin accent scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--hairline);
+  border-radius: 6px;
+  border: 3px solid var(--bg);
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+/* Scroll-reveal primitive (paired with IntersectionObserver in Reveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  filter: blur(5px);
+  transition:
+    opacity 0.55s var(--ease-out),
+    transform 0.55s var(--ease-out),
+    filter 0.55s var(--ease-out);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+/* Infinite marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 32s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Duotone/tint treatment so mixed real photos cohere; full colour on hover */
+.media-duotone {
+  filter: grayscale(1) contrast(1.05) brightness(0.88);
+  transition: filter 0.5s var(--ease-out);
+}
+.media-tile:hover .media-duotone,
+.media-tile:focus-visible .media-duotone {
+  filter: grayscale(0) contrast(1) brightness(1);
+}
+.media-tint {
+  mix-blend-mode: soft-light;
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease-out);
+}
+.media-tile:hover .media-tint,
+.media-tile:focus-visible .media-tint {
+  opacity: 0;
+}
+
+/* 3D tilt on hover for media cards */
+.tilt {
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg);
+  transition: transform 0.4s var(--ease-out);
+  transform-style: preserve-3d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { transition: opacity 0.3s ease; transform: none; filter: none; }
+  .marquee-track { animation: none; }
+  .tilt { transition: none; }
 }
