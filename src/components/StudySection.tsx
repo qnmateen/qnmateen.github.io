@@ -25,7 +25,6 @@ export function StudySection() {
                     <div className="font-medium">{e.school}</div>
                     <div className="text-sm text-fg-mute">{e.detail}</div>
                   </div>
-                  <span className="font-mono text-sm text-accent">{e.year}</span>
                 </Reveal>
               ))}
             </ul>

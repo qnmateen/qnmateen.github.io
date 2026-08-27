@@ -72,7 +72,7 @@ export const CHAPTERS: Chapter[] = [
     stats: [
       { n: 94, suffix: '%+', label: 'HCV diagnostic accuracy' },
       { text: 'Science\nAdvances', label: 'Peer-reviewed' },
-      { text: 'BSL-3', label: 'Live-virus clinical work' },
+      { text: 'BSL-2', label: 'Clinical HCV samples' },
     ],
     highlights: [
       'Smartphone microfluidics + deep learning for rapid HCV antigen detection',
@@ -110,7 +110,7 @@ export const CHAPTERS: Chapter[] = [
       },
       {
         category: 'Biosafety & clinical',
-        items: ['BSL-3 facility', 'Live hepatitis C virus (human samples)', 'Clinical sample handling & protocols'],
+        items: ['BSL-2 facility', 'Hepatitis C virus (human clinical samples)', 'Clinical sample handling & protocols'],
       },
     ],
     link: { label: 'Read the paper', href: 'https://www.science.org/doi/10.1126/sciadv.adt3803' },
