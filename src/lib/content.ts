@@ -16,7 +16,7 @@ export const PROFILE = {
   links: {
     github: 'https://github.com/qnmateen',
     linkedin: 'https://www.linkedin.com/in/qnmateen',
-    scholar: 'https://scholar.google.com/', // TODO: real Scholar URL
+    scholar: 'https://scholar.google.com/citations?user=ACRY-TsAAAAJ&hl=en',
     paper: 'https://www.science.org/doi/10.1126/sciadv.adt3803',
     cv: '/media/cv-9c1f7b3e.pdf', // unguessable name; save your CV here. Gated by CvGate code.
   },
@@ -29,7 +29,7 @@ export const CREDENTIALS: Credential[] = [
   { value: 'Harvard Medical', label: 'Researcher' },
   { value: 'IIT Delhi', label: 'MS (Research)' },
   { value: 'MindGaps', label: 'Building · Tech lead' },
-  { value: 'Heyliaa', label: 'COO' },
+  { value: 'Heyliaa', label: 'AI/ML Lead' },
   { value: 'Top 40 / 14,000', label: 'India Alliance Fellow' },
   { value: '4+ years', label: 'AI & data science' },
 ];
@@ -394,7 +394,8 @@ export const EDUCATION = [
   { school: 'Liverpool John Moores University', detail: 'MS, Data Science', year: '2025' },
   { school: 'Indian Institute of Technology Delhi', detail: 'MS (Research), Functional Genomics, Biochemical Eng. & Biotechnology', year: '2024' },
   { school: 'IIIT Bangalore', detail: 'PG Diploma, Machine Learning & AI', year: '2022' },
-  { school: 'Jamia Millia Islamia', detail: 'BS, Biosciences', year: '' },
+  { school: 'Aligarh Muslim University', detail: 'MSc, Biotechnology', year: '2020' },
+  { school: 'Jamia Millia Islamia', detail: 'BSc, Biosciences', year: '2018' },
 ];
 
 export const AWARDS = [
