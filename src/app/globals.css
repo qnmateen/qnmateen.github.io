@@ -71,17 +71,13 @@ body {
 .reveal {
   opacity: 0;
   transform: translateY(20px);
-  filter: blur(5px);
   transition:
-    opacity 0.55s var(--ease-out),
-    transform 0.55s var(--ease-out),
-    filter 0.55s var(--ease-out);
-  will-change: opacity, transform;
+    opacity 0.4s var(--ease-out),
+    transform 0.4s var(--ease-out);
 }
 .reveal.is-visible {
   opacity: 1;
   transform: none;
-  filter: none;
 }
 
 /* Infinite marquee */
@@ -101,25 +97,33 @@ body {
   filter: grayscale(1) contrast(1.05) brightness(0.88);
   transition: filter 0.5s var(--ease-out);
 }
-.media-tile:hover .media-duotone,
-.media-tile:focus-visible .media-duotone {
-  filter: grayscale(0) contrast(1) brightness(1);
-}
 .media-tint {
   mix-blend-mode: soft-light;
   opacity: 0.5;
   pointer-events: none;
   transition: opacity 0.5s var(--ease-out);
 }
-.media-tile:hover .media-tint,
+/* keyboard focus always reveals full colour */
+.media-tile:focus-visible .media-duotone {
+  filter: grayscale(0) contrast(1) brightness(1);
+}
 .media-tile:focus-visible .media-tint {
   opacity: 0;
+}
+/* hover reveal only on real pointers, so a tap doesn't stick the state on touch */
+@media (hover: hover) and (pointer: fine) {
+  .media-tile:hover .media-duotone {
+    filter: grayscale(0) contrast(1) brightness(1);
+  }
+  .media-tile:hover .media-tint {
+    opacity: 0;
+  }
 }
 
 /* 3D tilt on hover for media cards */
 .tilt {
   transform: perspective(900px) rotateX(0deg) rotateY(0deg);
-  transition: transform 0.4s var(--ease-out);
+  transition: transform 0.15s var(--ease-out);
   transform-style: preserve-3d;
 }
 
