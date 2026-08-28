@@ -4,6 +4,7 @@ import { Counter } from './Counter';
 import { DecodeText } from './DecodeText';
 import { CapabilityRail } from './CapabilityRail';
 import { MediaMosaic } from './MediaMosaic';
+import { DeviceBuild } from './DeviceBuild';
 
 function StatBlock({ stat, accent }: { stat: Chapter['stats'][number]; accent: string }) {
   return (
@@ -62,6 +63,9 @@ export function ChapterSection({ chapter }: { chapter: Chapter }) {
           </Reveal>
         </div>
       </div>
+
+      {/* ── Showpiece: the Harvard device build (Diagnostics only) ── */}
+      {chapter.id === 'wetlab' && <DeviceBuild />}
 
       {/* ── Stats + highlights + media ─────────────────────── */}
       <div className="relative border-t border-hairline py-20 sm:py-28">
