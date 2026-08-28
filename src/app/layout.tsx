@@ -20,9 +20,26 @@ const displaySerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://qnmateen.github.io"),
   title: "Qazi Noorul Mateen · Healthcare AI, grounded in science",
   description:
     "From the Harvard lab bench to production AI: published diagnostics research, genomics pipelines, healthcare AI agents, and a mental-health startup.",
+  openGraph: {
+    type: "website",
+    url: "https://qnmateen.github.io",
+    siteName: "Qazi Noorul Mateen",
+    title: "Qazi Noorul Mateen · Healthcare AI, grounded in science",
+    description:
+      "From the Harvard lab bench to production AI: published in Science Advances, genomics pipelines, and healthcare AI agents.",
+    images: [{ url: "/media/portrait-lab.jpg", alt: "Qazi Noorul Mateen" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Qazi Noorul Mateen · Healthcare AI, grounded in science",
+    description:
+      "From the Harvard lab bench to production AI: published in Science Advances, genomics pipelines, and healthcare AI agents.",
+    images: ["/media/portrait-lab.jpg"],
+  },
 };
 
 export default function RootLayout({
