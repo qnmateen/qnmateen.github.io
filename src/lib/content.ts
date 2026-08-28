@@ -28,10 +28,66 @@ export const SECTIONS = [
   { id: 'genomics', label: 'Genomics' },
   { id: 'ai', label: 'AI Agents' },
   { id: 'founder', label: 'Advisory' },
+  { id: 'code', label: 'Code' },
   { id: 'timeline', label: 'Timeline' },
   { id: 'study', label: 'Education' },
   { id: 'contact', label: 'Contact' },
 ] as const;
+
+export type Repo = { name: string; area: string; lang: string; desc: string; url: string };
+
+/** Real public repositories — the code behind the research + tools. */
+export const REPOS: Repo[] = [
+  {
+    name: 'ML & Deep-Learning Projects',
+    area: 'AI / ML',
+    lang: 'Jupyter',
+    desc: 'GANs, CNNs, RNNs, and reinforcement learning across medical imaging, vision, and NLP.',
+    url: 'https://github.com/qnmateen/IIITB-PG-Diploma-in-Machine-Learning-and-AI-Projects',
+  },
+  {
+    name: 'Single-cell RNA-seq pipeline',
+    area: 'Genomics',
+    lang: 'Python',
+    desc: 'Snakemake pipeline (Scanpy + Seurat) from raw counts to clusters and markers.',
+    url: 'https://github.com/qnmateen/singlecell-pipeline',
+  },
+  {
+    name: 'Bulk RNA-seq HPC pipeline',
+    area: 'Genomics',
+    lang: 'Shell',
+    desc: 'Parallel end-to-end RNA-seq on a PBS/HPC job array: QC, trimming, STAR alignment, featureCounts.',
+    url: 'https://github.com/qnmateen/Parallel-End-to-End-RNA-seq-Pipeline-for-Read-Generation',
+  },
+  {
+    name: 'JobScout AI',
+    area: 'AI / ML',
+    lang: 'Python',
+    desc: 'Multi-source AI-job discovery dashboard that ranks fresh roles to your profile. FastAPI + Next.js.',
+    url: 'https://github.com/qnmateen/jobscout-ai',
+  },
+  {
+    name: 'Strawberry Transcriber',
+    area: 'Tooling',
+    lang: 'Python',
+    desc: 'Batch audio/video transcription with OpenAI Whisper — exports TXT, SRT, and VTT.',
+    url: 'https://github.com/qnmateen/strawberry-transcriber',
+  },
+  {
+    name: 'EGFR lung cancer × PM2.5',
+    area: 'Research',
+    lang: 'R',
+    desc: 'Correlational analysis of EGFR-driven lung cancer against global PM2.5 exposure.',
+    url: 'https://github.com/Bhelpoori/PM2.5_EGFR_LC',
+  },
+  {
+    name: 'HPC job scheduler (SLURM)',
+    area: 'Research',
+    lang: 'Shell',
+    desc: 'Documented best practices for scheduling and running jobs on HPC clusters.',
+    url: 'https://github.com/Bhelpoori/HPC-job-scheduler-slurm',
+  },
+];
 
 export type Credential = { value: string; label: string };
 

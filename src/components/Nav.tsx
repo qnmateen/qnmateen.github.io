@@ -47,7 +47,7 @@ export function Nav({ onFastLane }: { onFastLane: () => void }) {
         </a>
 
         {/* desktop nav */}
-        <nav className="hidden items-center gap-6 lg:flex">
+        <nav className="hidden items-center gap-5 lg:flex">
           {SECTIONS.map((s) => {
             const active = s.id === activeId;
             return (

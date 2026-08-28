@@ -10,6 +10,7 @@ import { Hero } from './Hero';
 import { Marquee } from './Marquee';
 import { ChapterSection } from './ChapterSection';
 import { Timeline } from './Timeline';
+import { CodeSection } from './CodeSection';
 import { StudySection } from './StudySection';
 import { FastLane } from './FastLane';
 import { PhaseLabel } from './PhaseLabel';
@@ -38,6 +39,7 @@ export function Site() {
         {CHAPTERS.map((c) => (
           <ChapterSection key={c.id} chapter={c} />
         ))}
+        <CodeSection />
         <Timeline />
         <StudySection />
       </main>
