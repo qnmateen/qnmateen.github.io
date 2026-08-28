@@ -39,13 +39,6 @@ export type Repo = { name: string; area: string; lang: string; desc: string; url
 /** Real public repositories — the code behind the research + tools. */
 export const REPOS: Repo[] = [
   {
-    name: 'ML & Deep-Learning Projects',
-    area: 'AI / ML',
-    lang: 'Jupyter',
-    desc: 'GANs, CNNs, RNNs, and reinforcement learning across medical imaging, vision, and NLP.',
-    url: 'https://github.com/qnmateen/IIITB-PG-Diploma-in-Machine-Learning-and-AI-Projects',
-  },
-  {
     name: 'Single-cell RNA-seq pipeline',
     area: 'Genomics',
     lang: 'Python',
@@ -73,19 +66,47 @@ export const REPOS: Repo[] = [
     desc: 'Batch audio/video transcription with OpenAI Whisper — exports TXT, SRT, and VTT.',
     url: 'https://github.com/qnmateen/strawberry-transcriber',
   },
+];
+
+export const IIITB_REPO_URL =
+  'https://github.com/qnmateen/IIITB-PG-Diploma-in-Machine-Learning-and-AI-Projects';
+
+/** Individual projects inside the IIIT-B ML diploma monorepo (deep-linked to each folder). */
+export const IIIT_PROJECTS: Repo[] = [
   {
-    name: 'EGFR lung cancer × PM2.5',
-    area: 'Research',
-    lang: 'R',
-    desc: 'Correlational analysis of EGFR-driven lung cancer against global PM2.5 exposure.',
-    url: 'https://github.com/Bhelpoori/PM2.5_EGFR_LC',
+    name: 'CycleGAN — MRI T1↔T2 (Capstone)',
+    area: 'Medical Imaging',
+    lang: 'PyTorch / TF',
+    desc: 'GAN (modified U-Net) synthesizing T1↔T2 MRI for medical-image translation.',
+    url: IIITB_REPO_URL + '/tree/main/CycleGAN%20for%20MRI%20Style%20Transfer%20T1-T2%20Image%20Translation%20%28CAPSTONE%29',
   },
   {
-    name: 'HPC job scheduler (SLURM)',
-    area: 'Research',
-    lang: 'Shell',
-    desc: 'Documented best practices for scheduling and running jobs on HPC clusters.',
-    url: 'https://github.com/Bhelpoori/HPC-job-scheduler-slurm',
+    name: 'Melanoma Detection (CNN)',
+    area: 'Medical Imaging',
+    lang: 'TensorFlow',
+    desc: 'Custom CNN classifying skin lesions for melanoma detection.',
+    url: IIITB_REPO_URL + '/tree/main/Melanoma%20Detection_custom_CNN',
+  },
+  {
+    name: 'Healthcare NER (CRF)',
+    area: 'Clinical NLP',
+    lang: 'Python',
+    desc: 'CRF model extracting diseases and treatments from healthcare text.',
+    url: IIITB_REPO_URL + '/tree/main/Identifying_Entities_in_Healthcare_Data_CRF%20Model',
+  },
+  {
+    name: 'Gesture Recognition (CNN+RNN)',
+    area: 'Computer Vision',
+    lang: 'Keras',
+    desc: 'CNN+RNN vs Conv3D for real-time hand-gesture recognition.',
+    url: IIITB_REPO_URL + '/tree/main/Gesture%20Recognition-%20CNN%2BRNN%20vs%20Conv3D',
+  },
+  {
+    name: 'Deep Q-Network — Cab Driver (RL)',
+    area: 'Reinforcement Learning',
+    lang: 'Python',
+    desc: 'DQN agent optimizing driver decisions in a custom simulation.',
+    url: IIITB_REPO_URL + '/tree/main/Deep%20Q-Network%20%28DQN%29%20for%20Intelligent%20Cab%20Driver%20System',
   },
 ];
 

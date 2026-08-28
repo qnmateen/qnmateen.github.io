@@ -1,4 +1,4 @@
-import { REPOS } from '@/lib/content';
+import { REPOS, IIIT_PROJECTS, IIITB_REPO_URL, type Repo } from '@/lib/content';
 import { Reveal } from './Reveal';
 import { Counter } from './Counter';
 
@@ -8,6 +8,30 @@ const STATS: { n?: number; suffix?: string; text?: string; label: string }[] = [
   { n: 20, label: 'Public repositories' },
   { text: '2017', label: 'On GitHub since' },
 ];
+
+function RepoCard({ r, delay }: { r: Repo; delay: number }) {
+  return (
+    <Reveal delay={delay}>
+      <a
+        href={r.url}
+        target="_blank"
+        rel="noreferrer"
+        className="group flex h-full flex-col rounded-2xl border border-hairline bg-panel/60 p-5 transition-all duration-200 hover:border-hairline-strong hover:bg-panel active:scale-[0.99]"
+        style={{ transitionTimingFunction: 'var(--ease-out)' }}
+      >
+        <div className="flex items-center justify-between gap-3">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-accent">{r.area}</span>
+          <span className="font-mono text-[10px] text-fg-mute">{r.lang}</span>
+        </div>
+        <h3 className="mt-3 text-lg font-semibold tracking-tight">{r.name}</h3>
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-fg-mute">{r.desc}</p>
+        <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-fg-mute transition-colors group-hover:text-fg">
+          View on GitHub <span aria-hidden>→</span>
+        </span>
+      </a>
+    </Reveal>
+  );
+}
 
 /** Proof layer: real public repos + a GitHub-activity snapshot that captures
  *  the private production work (MarkiTech / MindGaps) without exposing code. */
@@ -39,28 +63,33 @@ export function CodeSection() {
         </div>
         <p className="mt-3 font-mono text-[10px] text-fg-mute">GitHub activity snapshot · Aug 2026</p>
 
-        {/* repo grid */}
+        {/* standalone repos */}
         <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {REPOS.map((r, i) => (
-            <Reveal key={r.url} delay={(i % 3) * 60}>
-              <a
-                href={r.url}
-                target="_blank"
-                rel="noreferrer"
-                className="group flex h-full flex-col rounded-2xl border border-hairline bg-panel/60 p-5 transition-all duration-200 hover:border-hairline-strong hover:bg-panel active:scale-[0.99]"
-                style={{ transitionTimingFunction: 'var(--ease-out)' }}
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-accent">{r.area}</span>
-                  <span className="font-mono text-[10px] text-fg-mute">{r.lang}</span>
-                </div>
-                <h3 className="mt-3 text-lg font-semibold tracking-tight">{r.name}</h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-fg-mute">{r.desc}</p>
-                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-fg-mute transition-colors group-hover:text-fg">
-                  View on GitHub <span aria-hidden>→</span>
-                </span>
-              </a>
-            </Reveal>
+            <RepoCard key={r.url} r={r} delay={(i % 3) * 60} />
+          ))}
+        </div>
+
+        {/* IIIT-B diploma projects (deep-linked into the one repo) */}
+        <Reveal>
+          <div className="mt-16 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <span className="font-mono text-xs uppercase tracking-[0.25em] text-fg-mute">Academic · IIIT-B ML diploma</span>
+              <h3 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">Machine-learning projects</h3>
+            </div>
+            <a
+              href={IIITB_REPO_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm text-fg-mute transition-colors hover:text-fg"
+            >
+              Full projects repo <span aria-hidden>→</span>
+            </a>
+          </div>
+        </Reveal>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {IIIT_PROJECTS.map((p, i) => (
+            <RepoCard key={p.url} r={p} delay={(i % 3) * 60} />
           ))}
         </div>
 
@@ -69,7 +98,7 @@ export function CodeSection() {
             href="https://github.com/qnmateen"
             target="_blank"
             rel="noreferrer"
-            className="mt-10 inline-flex items-center gap-2 rounded-full border border-hairline px-6 py-3 text-sm font-medium transition-transform duration-150 hover:bg-white/5 active:scale-[0.97]"
+            className="mt-12 inline-flex items-center gap-2 rounded-full border border-hairline px-6 py-3 text-sm font-medium transition-transform duration-150 hover:bg-white/5 active:scale-[0.97]"
             style={{ transitionTimingFunction: 'var(--ease-out)' }}
           >
             All repositories on GitHub <span aria-hidden>→</span>
