@@ -45,7 +45,7 @@ export function ChapterSection({ chapter }: { chapter: Chapter }) {
               className="mt-5 font-display text-[15vw] italic leading-[0.9] tracking-[-0.02em] sm:text-[9rem]"
               style={{ color: accent }}
             >
-              {chapter.phase === 'Sequence' ? (
+              {chapter.id === 'genomics' ? (
                 <DecodeText text={chapter.phase} duration={1100} />
               ) : (
                 chapter.phase

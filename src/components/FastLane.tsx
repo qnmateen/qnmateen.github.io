@@ -5,7 +5,7 @@ import { PROFILE, CREDENTIALS } from '@/lib/content';
 
 const easeOut = [0.23, 1, 0.32, 1] as const;
 
-export function FastLane({ open, onClose, onDownloadCv }: { open: boolean; onClose: () => void; onDownloadCv: () => void }) {
+export function FastLane({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
     <AnimatePresence>
       {open && (
@@ -50,9 +50,15 @@ export function FastLane({ open, onClose, onDownloadCv }: { open: boolean; onClo
             </div>
 
             <div className="mt-7 flex flex-wrap gap-3">
-              <button onClick={onDownloadCv} className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-black transition-transform duration-150 active:scale-[0.97]" style={{ transitionTimingFunction: 'var(--ease-out)' }}>
+              <a
+                href={PROFILE.links.cv}
+                download="Qazi_Noorul_Mateen_CV.pdf"
+                onClick={onClose}
+                className="rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-black transition-transform duration-150 active:scale-[0.97]"
+                style={{ transitionTimingFunction: 'var(--ease-out)' }}
+              >
                 Download CV
-              </button>
+              </a>
               <a href={`mailto:${PROFILE.email}`} className="rounded-full border border-hairline px-5 py-2.5 text-sm font-medium transition-transform duration-150 hover:bg-white/5 active:scale-[0.97]" style={{ transitionTimingFunction: 'var(--ease-out)' }}>
                 Contact
               </a>

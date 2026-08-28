@@ -22,13 +22,24 @@ export const PROFILE = {
   },
 };
 
+/** Canonical section list — one label per chapter, reused by nav + scrollspy + PhaseLabel. */
+export const SECTIONS = [
+  { id: 'wetlab', label: 'Diagnostics' },
+  { id: 'genomics', label: 'Genomics' },
+  { id: 'ai', label: 'AI Agents' },
+  { id: 'founder', label: 'Advisory' },
+  { id: 'timeline', label: 'Timeline' },
+  { id: 'study', label: 'Education' },
+  { id: 'contact', label: 'Contact' },
+] as const;
+
 export type Credential = { value: string; label: string };
 
 export const CREDENTIALS: Credential[] = [
   { value: 'Science Advances', label: 'Published (first-tier journal)' },
   { value: 'Harvard Medical', label: 'Researcher' },
   { value: 'IIT Delhi', label: 'MS (Research)' },
-  { value: 'MindGaps', label: 'Building · Tech lead' },
+  { value: 'MindGaps', label: 'Tech contributor' },
   { value: 'Heyliaa', label: 'AI/ML Lead' },
   { value: 'Top 40 / 14,000', label: 'India Alliance Fellow' },
   { value: '4+ years', label: 'AI & data science' },
@@ -118,7 +129,7 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'genomics',
     index: '02',
-    phase: 'Sequence',
+    phase: 'Genomics',
     kicker: 'IIT Delhi',
     title: 'Finding signal in the transcriptome.',
     lede: 'From raw reads to the trajectory of a disease: mapping how NAFLD unfolds gene by gene across 14 days, and teaching the next cohort to do the same.',
@@ -168,8 +179,8 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'ai',
     index: '03',
-    phase: 'Intelligence',
-    kicker: 'Heyliaa · Agentic AI for clinics',
+    phase: 'AI Agents',
+    kicker: 'Heyliaa',
     title: 'Agents that do real work.',
     lede: 'A team of AI agents running the clinic front desk: answering and placing calls, booking, verifying insurance, handling faxes and intake. Plus applied ML across voice, imaging, and reinforcement learning.',
     accent: '#a78bfa',
@@ -211,20 +222,20 @@ export const CHAPTERS: Chapter[] = [
   {
     id: 'founder',
     index: '04',
-    phase: 'Frontier',
-    kicker: 'Builder · Advisor',
-    title: 'Building companies for better health.',
-    lede: 'Building MindGaps, leading technology to make mental-health support accessible, and AI Strategy Advisor to Vgenomics on rare-disease genomic diagnostics.',
+    phase: 'Advisory',
+    kicker: 'MindGaps · Vgenomics',
+    title: 'Advising the frontier of health AI.',
+    lede: 'Advising and contributing across the frontier of health AI — mental-health technology at MindGaps, and rare-disease genomic diagnostics as AI Strategy Advisor to Vgenomics.',
     accent: '#4ade80',
     stats: [
-      { text: 'MindGaps', label: 'Building · Tech lead' },
+      { text: 'MindGaps', label: 'Tech contributor' },
       { text: 'Vgenomics', label: 'AI Strategy Advisor' },
-      { text: 'AI × Health', label: 'Where I build' },
+      { text: 'AI × Health', label: 'Where I contribute' },
     ],
     highlights: [
-      'MindGaps: leading technology to make mental-health and psychology support accessible',
+      'MindGaps: contributing technology to make mental-health and psychology support more accessible',
       'Vgenomics: AI Strategy Advisor for rare-disease genomic diagnostics (NIPT, WES, Rare Predict)',
-      'Setting AI roadmaps, technical architecture, and product strategy from zero to one',
+      'Advising on AI roadmaps, technical architecture, and product strategy',
     ],
     media: [
       { kind: 'image', src: '/media/vgenomics.png', caption: 'Vgenomics: rare-disease platform' },

@@ -46,7 +46,7 @@ export function StudySection() {
 
         {/* contact / footer */}
         <Reveal className="mt-24">
-          <div className="flex flex-col gap-8 rounded-3xl border border-hairline bg-panel p-8 sm:flex-row sm:items-center sm:p-12">
+          <div id="contact" style={{ scrollMarginTop: '6rem' }} className="flex flex-col gap-8 rounded-3xl border border-hairline bg-panel p-8 sm:flex-row sm:items-center sm:p-12">
             <div className="relative h-28 w-28 flex-none overflow-hidden rounded-2xl border border-hairline">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/media/portrait-lab.jpg" alt={PROFILE.name} className="h-full w-full object-cover" />
