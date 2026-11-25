@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -20,7 +21,12 @@ const displaySerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://qnmateen.github.io"),
+  metadataBase: new URL(SITE_URL),
+  alternates: {
+    types: {
+      "application/rss+xml": "/rss.xml",
+    },
+  },
   title: "Qazi Noorul Mateen · Healthcare AI, grounded in science",
   description:
     "From the Harvard lab bench to production AI: published diagnostics research, genomics pipelines, healthcare AI agents, and a mental-health startup.",

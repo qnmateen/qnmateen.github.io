@@ -19,8 +19,15 @@ export function Site() {
   const [fastLane, setFastLane] = useState(false);
 
   // Always open at the top, don't let the browser restore a prior scroll spot.
+  // A hash (from the blog nav, or a shared section link) still lands on that section.
   useEffect(() => {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    const id = window.location.hash.replace(/^#/, '');
+    const target = id ? document.getElementById(id) : null;
+    if (target) {
+      target.scrollIntoView();
+      return;
+    }
     window.scrollTo(0, 0);
   }, []);
 

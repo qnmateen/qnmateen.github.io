@@ -133,3 +133,195 @@ body {
   .marquee-track { animation: none; }
   .tilt { transition: none; }
 }
+
+/* Blog article. Scoped so the homepage is unchanged.
+   The frame is a single shrinkable column so wide code and tables scroll
+   inside themselves instead of widening the page. */
+.blog-root {
+  background:
+    radial-gradient(ellipse 70% 42% at 50% -12%, color-mix(in srgb, var(--accent) 14%, transparent), transparent 55%),
+    var(--bg);
+}
+
+.blog-frame {
+  width: min(100% - 2.5rem, 42rem);
+  margin-inline: auto;
+  padding-top: 7.25rem;
+  padding-bottom: 3.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 640px) {
+  .blog-frame { width: min(100% - 4rem, 42rem); }
+}
+
+.blog-footer {
+  margin-top: 3.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  color: var(--fg-mute);
+}
+
+.blog-footer a { transition: color 0.15s var(--ease-out); }
+.blog-footer a:hover { color: var(--fg); }
+
+.blog-root :focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.blog-root .prose {
+  min-width: 0;
+  max-width: 100%;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: color-mix(in srgb, var(--fg) 94%, var(--fg-mute));
+}
+
+.blog-root .prose > :first-child { margin-top: 0; }
+.blog-root .prose > :last-child { margin-bottom: 0; }
+
+.blog-root .prose h2,
+.blog-root .prose h3,
+.blog-root .prose h4 {
+  color: var(--fg);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+  scroll-margin-top: 5.5rem;
+}
+
+.blog-root .prose h2 { margin: 2.75rem 0 0.85rem; font-size: 1.6rem; }
+.blog-root .prose h3 { margin: 1.85rem 0 0.55rem; font-size: 1.2rem; letter-spacing: -0.02em; }
+.blog-root .prose h4 { margin: 1.4rem 0 0.4rem; font-size: 1.05rem; }
+
+.blog-root .prose p { margin: 0.95rem 0; }
+
+.blog-root .prose a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.blog-root .prose strong { font-weight: 650; color: var(--fg); }
+
+.blog-root .prose ul,
+.blog-root .prose ol {
+  margin: 0.95rem 0;
+  padding-left: 1.3rem;
+}
+
+.blog-root .prose ul { list-style: disc; }
+.blog-root .prose ol { list-style: decimal; }
+.blog-root .prose li { margin: 0.35rem 0; }
+.blog-root .prose li::marker { color: var(--accent); }
+
+.blog-root .prose blockquote {
+  margin: 1.5rem 0;
+  padding: 0.15rem 0 0.15rem 1rem;
+  border-left: 2px solid var(--accent);
+  color: var(--fg-mute);
+  font-family: var(--font-display), Georgia, serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  line-height: 1.45;
+}
+
+.blog-root .prose hr {
+  margin: 2.5rem 0;
+  border: 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.blog-root .prose :not(pre) > code {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.86em;
+  padding: 0.12em 0.38em;
+  border-radius: 0.35rem;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--fg);
+}
+
+.blog-root .prose pre {
+  overflow-x: auto;
+  max-width: 100%;
+  margin: 1.5rem 0;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--hairline);
+  border-radius: 0.85rem;
+  background: #0d1117;
+  line-height: 1.55;
+  font-size: 0.8125rem;
+  tab-size: 2;
+  overscroll-behavior-x: contain;
+}
+
+.blog-root .prose pre code,
+.blog-root .prose pre .line {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+.blog-root .prose pre code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+  background: transparent;
+  color: inherit;
+}
+
+.blog-root .table-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  margin: 1.5rem 0;
+  overscroll-behavior-x: contain;
+  border: 1px solid var(--hairline);
+  border-radius: 0.85rem;
+}
+
+.blog-root .prose .table-scroll table {
+  width: max-content;
+  min-width: 100%;
+  margin: 0;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.blog-root .prose th,
+.blog-root .prose td {
+  border-bottom: 1px solid var(--hairline);
+  padding: 0.65rem 0.9rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.blog-root .prose th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--fg-mute);
+  background: var(--panel);
+}
+
+.blog-root .prose tr:last-child td { border-bottom: none; }
+
+.blog-root .prose img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.5rem 0;
+  border-radius: 0.85rem;
+  border: 1px solid var(--hairline);
+}
