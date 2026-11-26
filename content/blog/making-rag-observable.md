@@ -5,7 +5,7 @@ date: "2026-11-25"
 description: "RAG from first principles (embeddings, chunking, top-k, thresholds), then the design of a retrieval-trace feature for a production voice agent: lazy fetch and cache, SSRF-safe fetching, feature-flag rollout, and bounded storage."
 tags: ["RAG", "LLMs", "Voice AI", "System design", "Security"]
 author: "Qazi Noorul Mateen"
-draft: true
+draft: false
 ---
 
 When a voice AI gives a caller an answer, the person reviewing that call later wants to know one thing: **why did it say that?**
