@@ -1,16 +1,13 @@
 'use client';
 
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
-
-const easeOut = [0.23, 1, 0.32, 1] as const;
+import { useEffect, useRef } from 'react';
 
 type Beat = { src: string; video?: boolean; kicker: string; title: string; credit?: string };
 
-/** The Harvard point-of-care device, told as a scroll-pinned build sequence.
+/** The Harvard point-of-care device, told as a scrolling build sequence.
  *  Beats 1–6 are Noorul's own build footage; 7–8 are the paper's figures
- *  (CC BY-NC, attributed). Cross-fade on scroll; captions animate per beat. */
+ *  (CC BY-NC, attributed). Frames move with the page so scroll is never pinned. */
 const BEATS: Beat[] = [
   { src: '/media/s1-channel-designs.jpg', kicker: '01 · Design', title: 'Microfluidic channels, from scratch' },
   { src: '/media/s1-laser-cut.jpg', kicker: '02 · Fabricate', title: 'Laser-cutting the PMMA device layers' },
@@ -32,125 +29,74 @@ const BEATS: Beat[] = [
   },
 ];
 
-const VIDEO_BEATS = new Set(BEATS.map((b, i) => (b.video ? i : -1)).filter((i) => i >= 0));
-
 export function DeviceBuild() {
-  const [active, setActive] = useState(0);
-  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const videoFrameRef = useRef<HTMLElement>(null);
 
-  // active beat = the step crossing the viewport middle
+  // Play the assay clip only while its frame is on screen.
   useEffect(() => {
+    const frame = videoFrameRef.current;
+    const video = videoRef.current;
+    if (!frame || !video) return;
     const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActive(Number((e.target as HTMLElement).dataset.i));
-        });
+      ([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => {});
+        else video.pause();
       },
-      { rootMargin: '-50% 0px -50% 0px', threshold: 0 },
+      { threshold: 0.45 },
     );
-    stepRefs.current.forEach((el) => el && io.observe(el));
+    io.observe(frame);
     return () => io.disconnect();
   }, []);
 
-  // only run the video when its beat is on screen
-  useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    if (VIDEO_BEATS.has(active)) v.play().catch(() => {});
-    else v.pause();
-  }, [active]);
-
-  const beat = BEATS[active];
-
   return (
-    <section aria-label="Building the point-of-care device" className="relative">
-      {/* lead-in (scrolls normally) */}
-      <div className="mx-auto max-w-7xl px-5 pb-4 pt-10 sm:px-8">
+    <section aria-label="Building the point-of-care device">
+      <div className="mx-auto max-w-7xl px-5 pb-6 pt-10 sm:px-8">
         <span className="font-mono text-xs uppercase tracking-[0.3em] text-fg-mute">The build · Harvard</span>
         <h3 className="mt-3 max-w-2xl text-2xl font-semibold tracking-tight sm:text-3xl">
           From 3D print to a device that detects HCV.
         </h3>
         <p className="mt-2 max-w-xl text-fg-mute">
-          Scroll to follow the point-of-care system I built — fabrication, to a live assay, to a deep-learning
-          readout validated in the clinic.
+          The point-of-care system I built — fabrication, a live assay, then a deep-learning readout validated in the
+          clinic.
         </p>
       </div>
 
-      {/* pinned visual */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {BEATS.map((b, i) => (
-          <div
-            key={b.src}
-            className="absolute inset-0"
-            style={{ opacity: i === active ? 1 : 0, transition: 'opacity 0.6s var(--ease-out)' }}
+      <div className="flex flex-col gap-3 px-3 sm:gap-4 sm:px-5">
+        {BEATS.map((beat) => (
+          <figure
+            key={beat.src}
+            ref={beat.video ? videoFrameRef : undefined}
+            className="relative h-[46vh] min-h-[300px] w-full overflow-hidden rounded-2xl sm:h-[52vh]"
           >
-            {b.video ? (
-              <video ref={videoRef} src={b.src} muted loop playsInline preload="metadata" className="h-full w-full object-cover" />
+            {beat.video ? (
+              <video
+                ref={videoRef}
+                src={beat.src}
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="h-full w-full object-cover"
+              />
             ) : (
-              <img src={b.src} alt={b.title} className="h-full w-full object-cover" loading="lazy" />
+              <img src={beat.src} alt={beat.title} className="h-full w-full object-cover" loading="lazy" />
             )}
-          </div>
-        ))}
-
-        {/* legibility scrim */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              'linear-gradient(to top, rgba(4,6,9,0.94) 0%, rgba(4,6,9,0.30) 42%, rgba(4,6,9,0.62) 100%)',
-          }}
-        />
-
-        {/* caption + progress */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0">
-          <div className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 sm:pb-24">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={active}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.35, ease: easeOut }}
-                className="max-w-2xl"
-              >
-                <div className="font-mono text-xs uppercase tracking-[0.3em]" style={{ color: 'var(--accent)' }}>
-                  {beat.kicker}
-                </div>
-                <h3 className="mt-3 font-display text-4xl italic leading-[1.05] sm:text-6xl">{beat.title}</h3>
-                {beat.credit && <p className="mt-3 font-mono text-[10px] leading-relaxed text-fg-mute">{beat.credit}</p>}
-              </motion.div>
-            </AnimatePresence>
-
-            <div className="mt-6 flex gap-1.5">
-              {BEATS.map((_, i) => (
-                <span
-                  key={i}
-                  className="h-1 rounded-full transition-all duration-300"
-                  style={{
-                    width: i === active ? 28 : 10,
-                    background: i === active ? 'var(--accent)' : 'var(--hairline-strong)',
-                    transitionTimingFunction: 'var(--ease-out)',
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* invisible scroll drivers, pulled up to overlap the pinned visual */}
-      <div className="relative -mt-[100vh]">
-        {BEATS.map((_, i) => (
-          <div
-            key={i}
-            data-i={i}
-            ref={(el) => {
-              stepRefs.current[i] = el;
-            }}
-            className="h-[65vh]"
-            aria-hidden
-          />
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(to bottom, rgba(4,6,9,0.78) 0%, rgba(4,6,9,0.08) 48%, rgba(4,6,9,0.2) 100%)',
+              }}
+            />
+            <figcaption className="pointer-events-none absolute inset-x-0 top-0 px-5 pt-5 sm:px-8 sm:pt-7">
+              <div className="font-mono text-xs uppercase tracking-[0.3em]" style={{ color: 'var(--accent)' }}>
+                {beat.kicker}
+              </div>
+              <h3 className="mt-2 max-w-3xl font-display text-3xl italic leading-[1.05] sm:text-5xl">{beat.title}</h3>
+              {beat.credit && <p className="mt-2 max-w-xl font-mono text-[10px] leading-relaxed text-fg-mute">{beat.credit}</p>}
+            </figcaption>
+          </figure>
         ))}
       </div>
     </section>
