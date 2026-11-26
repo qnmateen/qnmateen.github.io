@@ -1,13 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { AnimatePresence, motion } from 'motion/react';
 import { PROFILE, SECTIONS } from '@/lib/content';
 import { useActiveSection } from '@/lib/activeSection';
 
 const easeOut = [0.23, 1, 0.32, 1] as const;
 
-export function Nav({ onFastLane }: { onFastLane: () => void }) {
+export function Nav({ onFastLane, home = true }: { onFastLane?: () => void; home?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const activeId = useActiveSection((s) => s.activeId);
@@ -38,48 +39,67 @@ export function Nav({ onFastLane }: { onFastLane: () => void }) {
         borderBottom: scrolled ? '1px solid var(--hairline)' : '1px solid transparent',
       }}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
-        <a href="#top" className="group flex items-center gap-2.5" onClick={() => setMenuOpen(false)}>
-          <span className="grid h-8 w-8 place-items-center rounded-full border border-hairline text-[11px] font-semibold tracking-tight text-accent">
-            QNM
-          </span>
-          <span className="text-base font-semibold tracking-tight sm:text-lg">{PROFILE.name}</span>
-        </a>
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-5 py-4 sm:px-8">
+        {home ? (
+          <a href="#top" className="group flex shrink-0 items-center gap-2.5" onClick={() => setMenuOpen(false)}>
+            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-hairline text-[11px] font-semibold tracking-tight text-accent">
+              QNM
+            </span>
+            <span className="whitespace-nowrap text-base font-semibold tracking-tight sm:text-lg lg:hidden xl:inline">{PROFILE.name}</span>
+          </a>
+        ) : (
+          <Link href="/" className="group flex shrink-0 items-center gap-2.5" onClick={() => setMenuOpen(false)}>
+            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-hairline text-[11px] font-semibold tracking-tight text-accent">
+              QNM
+            </span>
+            <span className="whitespace-nowrap text-base font-semibold tracking-tight sm:text-lg lg:hidden xl:inline">{PROFILE.name}</span>
+          </Link>
+        )}
 
         {/* desktop nav */}
-        <nav className="hidden items-center gap-5 lg:flex">
+        <nav className="hidden min-w-0 items-center gap-x-3 xl:gap-x-5 lg:flex">
           {SECTIONS.map((s) => {
             const active = s.id === activeId;
             return (
               <a
                 key={s.id}
-                href={`#${s.id}`}
+                href={home ? `#${s.id}` : `/#${s.id}`}
                 aria-current={active ? 'true' : undefined}
-                className="text-sm transition-colors duration-150"
+                className="shrink-0 whitespace-nowrap text-[13px] transition-colors duration-150 xl:text-sm"
                 style={{ color: active ? 'var(--accent)' : 'var(--fg-mute)' }}
               >
                 {s.label}
               </a>
             );
           })}
+          <Link
+            href="/blog/"
+            aria-current={home ? undefined : 'page'}
+            className="shrink-0 whitespace-nowrap text-[13px] transition-colors duration-150 xl:text-sm"
+            style={{ color: home ? 'var(--fg-mute)' : 'var(--accent)' }}
+          >
+            Blog
+          </Link>
         </nav>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex shrink-0 items-center gap-2.5">
           <a
             href={PROFILE.links.cv}
             download="Qazi_Noorul_Mateen_CV.pdf"
-            className="hidden rounded-full border border-hairline px-4 py-2 text-xs font-medium transition-transform duration-150 hover:bg-white/5 active:scale-[0.97] lg:inline-block"
+            className="hidden whitespace-nowrap rounded-full border border-hairline px-4 py-2 text-xs font-medium transition-transform duration-150 hover:bg-white/5 active:scale-[0.97] lg:inline-block"
             style={{ transitionTimingFunction: 'var(--ease-out)' }}
           >
             Download CV
           </a>
-          <button
-            onClick={onFastLane}
-            className="hidden rounded-full bg-white/5 px-4 py-2 text-xs font-medium transition-transform duration-150 hover:bg-white/10 active:scale-[0.97] lg:inline-block"
-            style={{ transitionTimingFunction: 'var(--ease-out)', border: '1px solid var(--accent)', color: 'var(--accent)' }}
-          >
-            In a hurry? →
-          </button>
+          {onFastLane ? (
+            <button
+              onClick={onFastLane}
+              className="hidden whitespace-nowrap rounded-full bg-white/5 px-4 py-2 text-xs font-medium transition-transform duration-150 hover:bg-white/10 active:scale-[0.97] lg:inline-block"
+              style={{ transitionTimingFunction: 'var(--ease-out)', border: '1px solid var(--accent)', color: 'var(--accent)' }}
+            >
+              In a hurry? →
+            </button>
+          ) : null}
 
           {/* mobile hamburger */}
           <button
@@ -122,7 +142,7 @@ export function Nav({ onFastLane }: { onFastLane: () => void }) {
                 return (
                   <a
                     key={s.id}
-                    href={`#${s.id}`}
+                    href={home ? `#${s.id}` : `/#${s.id}`}
                     onClick={() => setMenuOpen(false)}
                     className="rounded-xl px-3 py-3 text-base transition-colors"
                     style={{ color: active ? 'var(--accent)' : 'var(--fg)' }}
@@ -131,6 +151,15 @@ export function Nav({ onFastLane }: { onFastLane: () => void }) {
                   </a>
                 );
               })}
+              <Link
+                href="/blog/"
+                onClick={() => setMenuOpen(false)}
+                aria-current={home ? undefined : 'page'}
+                className="rounded-xl px-3 py-3 text-base transition-colors"
+                style={{ color: home ? 'var(--fg)' : 'var(--accent)' }}
+              >
+                Blog
+              </Link>
               <div className="mt-3 flex gap-3 px-3">
                 <a
                   href={PROFILE.links.cv}
